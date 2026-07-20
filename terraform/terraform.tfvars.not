@@ -1,0 +1,9 @@
+aws_access_key  = "YOUR_ACCESS_KEY_ID"
+
+aws_secret_key  = "YOUR_SECRET_ACCESS_KEY"
+
+aws_region      = "us-east-1"
+
+aws_account_id  = "YOUR_AWS_ACCOUNT_ID"
+
+alert_email     = "your-email@example.com"
