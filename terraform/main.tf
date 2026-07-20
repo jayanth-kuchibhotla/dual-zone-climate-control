@@ -45,11 +45,13 @@ resource "aws_iot_policy" "dual_zone_climate_policy" {
             },
             {
                 Effect   = "Allow"
-                Action   = [
-                    "iot:Subscribe",
-                    "iot:Receive"
-                ]
+                Action   = "iot:Subscribe"
                 Resource = "arn:aws:iot:${var.aws_region}:${var.aws_account_id}:topicfilter/home/dual-zone-climate/*"
+            },
+            {
+                Effect   = "Allow"
+                Action   = "iot:Receive"
+                Resource = "arn:aws:iot:${var.aws_region}:${var.aws_account_id}:topic/home/dual-zone-climate/*"
             },
             {
                 Effect   = "Allow"
@@ -58,11 +60,13 @@ resource "aws_iot_policy" "dual_zone_climate_policy" {
             },
             {
                 Effect   = "Allow"
-                Action   = [
-                    "iot:Subscribe",
-                    "iot:Receive"
-                ]
+                Action   = "iot:Subscribe"
                 Resource = "arn:aws:iot:${var.aws_region}:${var.aws_account_id}:topicfilter/$aws/things/dual-zone-climate-control/shadow/*"
+            },
+            {
+                Effect   = "Allow"
+                Action   = "iot:Receive"
+                Resource = "arn:aws:iot:${var.aws_region}:${var.aws_account_id}:topic/$aws/things/dual-zone-climate-control/shadow/*"
             }
         ]
     })
