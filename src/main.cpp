@@ -64,6 +64,9 @@ void connectWiFi() {
 
 // ─── MQTT callback ─────────────────────────────────
 void callback(char* topic, byte* payload, unsigned int length) {
+
+  Serial.println("[MQTT] Message received on topic: " + String(topic));
+
   char buffer[length + 1];
   memcpy(buffer, payload, length);
   buffer[length] = '\0';
@@ -94,7 +97,7 @@ void connectMQTT() {
   net.setCertificate(DEVICE_CERT);
   net.setPrivateKey(DEVICE_KEY);
   mqtt.setServer(AWS_IOT_ENDPOINT, AWS_IOT_PORT);
-  mqtt.setBufferSize(1024);
+  mqtt.setBufferSize(2048);
 
   Serial.print("[MQTT] Connecting to AWS IoT...");
   mqtt.setCallback(callback);
@@ -113,7 +116,10 @@ void connectMQTT() {
   mqtt.subscribe(SHADOW_DELTA);
   mqtt.subscribe(SHADOW_GET_ACCEPTED);
 
-  mqtt.publish(SHADOW_GET, "{}");
+  bool getResult = mqtt.publish(SHADOW_GET, "{}");
+  Serial.println(getResult ? "[MQTT] Shadow GET published" : "[MQTT] Shadow GET FAILED");
+  delay(500);
+  mqtt.loop();
 }
 
 // ─── Setup ──────────────────────────────────────────
