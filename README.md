@@ -26,6 +26,7 @@ The ESP32 reads temperature and humidity from both zones every 10 seconds and pu
 Simultaneously, the ESP32 publishes its reported state to the AWS IoT Device Shadow. If a desired relay state has been set in the shadow that differs from the reported state, AWS generates a delta document and delivers it to the device over MQTT. The ESP32 acts on the delta immediately, updates its relay outputs, and publishes the new reported state back to the shadow.
 
 > A diagram of the architecture is displayed below:
+
 ![Architecture](documentation-images/arch.png)
 
 ---
@@ -49,6 +50,7 @@ Reported state structure:
 }
 ```
 > The actual structure of the device shadow document is as follows:
+
 ![Shadow Doc](documentation-images/device_shadow_doc.png)
 
 ---
@@ -93,7 +95,7 @@ Shows WiFi connection, MQTT connection, shadow GET published, delta received on 
 
 Shows the classic shadow document with both `desired` and `reported` state populated, demonstrating the delta between them.
 
-![AWS IoT Device Shadow](documentation-images/device_shaodw_doc.png)
+![AWS IoT Device Shadow](documentation-images/device_shadow_doc.png)
 
 - **DynamoDB Records**
 
@@ -112,27 +114,5 @@ Live dashboard showing Zone A temperature, Zone B humidity, and relay states fro
 Shows messages arriving on `home/dual-zone-climate/monitoring-device` with correct dual-zone JSON payload.
 
 ![MQTT Test Client](documentation-images/mqtt_test_client.png)
-
----
-
-## Repository Structure
-
-dual-zone-climate-control/
-├── firmware/
-│   ├── src/
-│   │   └── main.cpp
-│   ├── include/
-│   │   ├── secrets.h          # gitignored — credentials
-│   │   └── secrets.example.h  # template
-│   └── platformio.ini
-├── terraform/
-│   ├── main.tf
-│   ├── variables.tf
-│   ├── outputs.tf
-│   └── lambda_function.zip
-├── lambda/
-│   └── lambda_function.py
-├── documentation-images/
-└── README.md
 
 ---
